@@ -9,6 +9,9 @@ function App() {
   const [tip2, setTip2] = useState(0);
   const [amount, setAmount] = useState(0);
 
+  const tip = (amount * (tip1 + tip2)) / 200;
+  const total = amount + tip;
+
   const handleAmount = (newAmount) => {
       let value = Number(newAmount);
       if (!isNaN(value)) { 
@@ -41,13 +44,13 @@ function App() {
     <div className="App">
       <Bill amount={amount} onAmount={handleAmount} />
       <Feedback select={tip1} setSelect={handleTip1}>
-        <span>How did you like the service?</span>
+        How did you like the service?
       </Feedback>
       <Feedback select={tip2} setSelect={handleTip2}>
-        <span>How did your friend like the service?</span>
+        How did your friend like the service?
       </Feedback>
-      {amount !== 0 && <Total bill={amount} tip1={tip1} tip2={tip2} />}
-      <Button onReset={handleReset}/>
+      {amount !== 0 && <><Total bill={amount} total={total} tip={tip} /><Button onReset={handleReset}/></>}
+      
     </div>
   );
 }
